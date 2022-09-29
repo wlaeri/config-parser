@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "target": "ES2015",
+      "module": "ES2020",
+      "strict": true,
+      "strictPropertyInitialization": false,
+      "esModuleInterop": true,
+      "outDir": "./lib/esm",
+      "declaration": true,
+      "moduleResolution": "node",
+      "paths": {
+        "src/*": ["./src/*"]
+      }
+    },
+    "include": ["src"],
+    "exclude": ["**/*.test.ts"]
+}
