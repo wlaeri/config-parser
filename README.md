@@ -8,7 +8,19 @@ The [Twelve-Factor App Methodology](https://12factor.net/config) prescribes stor
 
 ## Solution
 
-By parsing the runtime environment variables into a typed object on application startup, we can adopt a [fail-fast](https://en.wikipedia.org/wiki/Fail-fast) design and guarantee type safety within the application code. This allows us to detect configuration issues on startup and enjoy the benefits of intelligent code completion. 
+By parsing the runtime environment variables into a typed object on application startup, we can adopt a [fail-fast](https://en.wikipedia.org/wiki/Fail-fast) design and guarantee type safety within the application code. This allows us to detect configuration issues on startup and enjoy the benefits of intelligent code completion.
+
+## Installation
+
+```sh
+# Install with NPM
+npm install --save @laeri/config-parser
+```
+
+```sh
+# Install with Yarn
+yarn add @laeri/config-parser
+```
 
 ## Usage
 
@@ -31,9 +43,9 @@ An optional declaration file for the environment enables intelligent code comple
 
 namespace NodeJS {
   interface ProcessEnv {
-    APP_NAME: string;
-    APP_PORT: string;
-    IS_TRACING_ENABLED: string;
+    APP_NAME: string
+    APP_PORT: string
+    IS_TRACING_ENABLED: string
   }
 }
 ```
@@ -50,17 +62,17 @@ export interface Config {
    * The name of the application.
    * @example "my-app"
    */
-  applicationName: string;
+  applicationName: string
   /**
    * The port the application is listening for requests on.
    * @example 1337
    */
-  port: number;
+  port: number
   /**
    * True if application tracing is enabled.
    * @example false
    */
-  isTracingEnabled: boolean;
+  isTracingEnabled: boolean
 }
 ```
 
@@ -71,31 +83,31 @@ Provide the function to parse your environment variables from strings to their e
 ```ts
 // config/parser.ts
 
-import { Config } from './interface';
-import { toInteger, toBoolean, EnvironmentParser } from '@laeri/config-parser';
+import { Config } from './interface'
+import { toInteger, toBoolean, EnvironmentParser } from '@laeri/config-parser'
 
 export const parse: EnvironmentParser<Config> = () => {
   return {
     applicationName: process.env.APP_NAME,
     port: toInteger(process.env.APP_PORT),
     isTracingEnabled: toBoolean(process.env.IS_TRACING_ENABLED),
-  };
-};
+  }
+}
 ```
 
 ### Pass the `parse` function to `sanitize`
 
-This step ensures that an [exception](#exceptions) is thrown if the environment is not properly configured. 
+This step ensures that an [exception](#exceptions) is thrown if the environment is not properly configured.
 
 ```ts
 // config/index.ts
 
-import { sanitize } from '@laeri/config-parser';
-import { parse } from './parser';
-import * as dotenv from 'dotenv';
+import { sanitize } from '@laeri/config-parser'
+import { parse } from './parser'
+import * as dotenv from 'dotenv'
 
-dotenv.config();
-export const config = sanitize(parse);
+dotenv.config()
+export const config = sanitize(parse)
 ```
 
 > This library has no dependencies but it can be used in conjunction with libraries like [`dotenv`](https://github.com/motdotla/dotenv#readme).
@@ -105,7 +117,7 @@ export const config = sanitize(parse);
 The config object is now typed and ready to use anywhere you need it.
 
 ```ts
-// server.ts  
+// server.ts
 
 import { app } from './app'
 import { config } from './config'
@@ -113,7 +125,6 @@ import { config } from './config'
 app.listen(config.port, () => {
   console.log(`Application listening on port ${config.port}.`)
 })
-
 ```
 
 ## Parsers
