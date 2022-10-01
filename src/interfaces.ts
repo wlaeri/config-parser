@@ -4,7 +4,7 @@
  * Note:
  */
 export interface EnvironmentVariableParser<T> {
-  (value: string | undefined): T | undefined;
+  (value: string | undefined): T | undefined
 }
 
 /**
@@ -12,5 +12,5 @@ export interface EnvironmentVariableParser<T> {
  * @template T The interface for the config object.
  */
 export interface EnvironmentParser<T> {
-  (): Partial<T>;
+  (): Partial<T>
 }

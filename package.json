@@ -14,23 +14,29 @@
   ],
   "scripts": {
     "clean": "rm -rf ./node_modules ./lib ./coverage",
+    "format": "prettier --write 'src/**/*.{ts,json}'",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "test": "jest",
     "coverage": "jest --coverage",
     "tsc": "npx tsc -p tsconfig.json && npx tsc -p tsconfig-cjs.json",
     "prepublish": "yarn build",
     "build": "yarn clean && yarn tsc",
-    "prepare": "yarn build"
+    "prepare": "yarn build && husky install"
   },
   "devDependencies": {
-    "@jest/types": "^29.1.0",
-    "@types/jest": "28.1.6",
+    "@types/jest": "^29.1.1",
     "@types/node": "18.6.4",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "eslint": "8.21.0",
+    "eslint-config-prettier": "^8.5.0",
     "jest": "28.1.2",
+    "prettier": "2.7.1",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "husky": "^8.0.0"
   },
   "packageManager": "yarn@3.2.3"
 }

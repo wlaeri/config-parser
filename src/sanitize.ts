@@ -1,5 +1,5 @@
-import { MissingEnvironmentVariableException } from './exceptions';
-import { EnvironmentParser } from './interfaces';
+import { MissingEnvironmentVariableException } from './exceptions'
+import { EnvironmentParser } from './interfaces'
 
 /**
  * A function to ensure that all environment variables are present.
@@ -9,11 +9,11 @@ import { EnvironmentParser } from './interfaces';
  * @return {T} The sanitized configuration object.
  */
 export const sanitize = <T>(parser: EnvironmentParser<T>): T => {
-  const config = parser();
+  const config = parser()
   for (const [key, value] of Object.entries(config)) {
     if (value === undefined) {
-      throw new MissingEnvironmentVariableException(key);
+      throw new MissingEnvironmentVariableException(key)
     }
   }
-  return config as T;
-};
+  return config as T
+}

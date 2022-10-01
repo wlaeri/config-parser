@@ -8,7 +8,7 @@ export class ParserException extends Error {
    * @param {string} parsedType The expected type after parsing.
    */
   constructor(value: unknown, parsedType: string) {
-    super(`Unable to parse ${value} of type ${typeof value} to ${parsedType}.`);
+    super(`Unable to parse ${value} of type ${typeof value} to ${parsedType}.`)
   }
 }
 
@@ -17,6 +17,6 @@ export class ParserException extends Error {
  */
 export class MissingEnvironmentVariableException extends Error {
   constructor(variableName: string) {
-    super(`Required environment variable ${variableName} is not set.`);
+    super(`Required environment variable ${variableName} is not set.`)
   }
 }
