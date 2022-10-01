@@ -19,10 +19,12 @@
     "lint:fix": "eslint --fix",
     "test": "jest",
     "coverage": "jest --coverage",
-    "tsc": "npx tsc -p tsconfig.json && npx tsc -p tsconfig-cjs.json",
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "yarn build",
     "build": "yarn clean && yarn tsc",
-    "prepare": "yarn build && husky install"
+    "prepare": "yarn build && husky install",
+    "prepack": "yarn build",
+    "pack:local": "yarn pack && tar -xvf package.tgz"
   },
   "devDependencies": {
     "@types/jest": "^29.1.1",
