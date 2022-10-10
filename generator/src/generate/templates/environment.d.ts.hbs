@@ -1,0 +1,9 @@
+{{header}}
+
+namespace NodeJS {
+  interface ProcessEnv {
+  {{#each environmentVariables}}
+      {{this.name}}: {{this.primitiveType}}
+  {{~/each}}
+  }
+}

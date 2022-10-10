@@ -1,0 +1,5 @@
+import { sanitize } from '@laeri/config-parser'
+import { Config } from './generated/interface'
+import { parse } from './generated/parser'
+
+export const createConfig = (): Config => sanitize(parse)
