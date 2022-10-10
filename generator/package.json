@@ -7,9 +7,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "description": "Command line utilities for generating typed configuration code.",
-  "bin": {
-    "config-generator": "dist/index.ts"
-  },
+  "bin": "dist/index.ts",
   "files": [
     "dist"
   ],
