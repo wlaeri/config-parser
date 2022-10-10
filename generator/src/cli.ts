@@ -1,7 +1,7 @@
 import { Command } from 'commander'
-import packageJson from '../../package.json'
-import { generateConfig } from '../generate'
-import { initializeConfigDirectory } from '../init'
+import packageJson from '../package.json'
+import { generateConfig } from './generate'
+import { initializeConfigDirectory } from './init'
 
 const program = new Command()
 
@@ -35,4 +35,6 @@ program
     initializeConfigDirectory()
   })
 
-program.parse()
+export const runCli = () => {
+  program.parse()
+}
