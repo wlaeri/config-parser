@@ -8,8 +8,7 @@
   "version": "0.0.1",
   "description": "Command line utilities for generating typed configuration code.",
   "bin": {
-    "@laeri/config-parser": "dist/index.ts",
-    "config-parser": "dist/index.ts"
+    "config-generator": "dist/index.ts"
   },
   "files": [
     "dist"
@@ -27,8 +26,8 @@
     "prepare": "yarn build && husky install",
     "prepack": "yarn build",
     "pack:local": "yarn pack && tar -xvf package.tgz",
-    "generate": "node ./dist generate --no-output",
-    "init": "node ./dist init"
+    "generate": "ts-node ./src generate --no-output",
+    "init": "ts-node ./src init"
   },
   "peerDependencies": {
     "@laeri/config-parser": "0.0.1"
