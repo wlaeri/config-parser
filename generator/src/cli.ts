@@ -1,14 +1,13 @@
 import { Command } from 'commander'
-import packageJson from '../package.json'
 import { generateConfig } from './generate'
 import { initializeConfigDirectory } from './init'
 
 const program = new Command()
 
 program
-  .name(packageJson.name)
-  .description(packageJson.description)
-  .version(packageJson.version)
+  .name('@laeri/config-generator')
+  .description('0.0.1')
+  .version('Command line utilities for generating typed configuration code.')
 
 program
   .command('generate')

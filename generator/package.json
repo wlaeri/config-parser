@@ -7,10 +7,12 @@
   "license": "MIT",
   "version": "0.0.1",
   "description": "Command line utilities for generating typed configuration code.",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "bin": {
+    "@laeri/config-parser": "dist/index.ts",
+    "config-parser": "dist/index.ts"
+  },
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "clean": "rm -rf ./node_modules ./lib ./coverage",
@@ -19,14 +21,14 @@
     "lint:fix": "eslint --fix",
     "test": "jest",
     "coverage": "jest --coverage",
-    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "tsc": "tsc -p tsconfig.json",
     "prepublish": "yarn build",
     "build": "yarn clean && yarn tsc",
     "prepare": "yarn build && husky install",
     "prepack": "yarn build",
     "pack:local": "yarn pack && tar -xvf package.tgz",
-    "generate": "yarn build && ./dist/bin generate --no-output",
-    "init": "yarn build && ./dist/bin init"
+    "generate": "node ./dist generate --no-output",
+    "init": "node ./dist init"
   },
   "peerDependencies": {
     "@laeri/config-parser": "0.0.1"
