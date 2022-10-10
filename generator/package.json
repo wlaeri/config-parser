@@ -4,6 +4,7 @@
     "name": "Will Laeri",
     "email": "wlaeri@gmail.com"
   },
+  "type": "module",
   "license": "MIT",
   "version": "0.0.1",
   "description": "Command line utilities for generating typed configuration code.",
@@ -24,8 +25,8 @@
     "prepare": "yarn build && husky install",
     "prepack": "yarn build",
     "pack:local": "yarn pack && tar -xvf package.tgz",
-    "generate": "ts-node ./src generate --no-output",
-    "init": "ts-node ./src init"
+    "generate": "ts-node-esm --experimental-specifier-resolution=node ./src generate --no-output",
+    "init": "ts-node-esm --experimental-specifier-resolution=node ./src init"
   },
   "peerDependencies": {
     "@laeri/config-parser": "0.0.1"

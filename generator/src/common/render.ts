@@ -1,4 +1,4 @@
-import { compile } from 'handlebars'
+import handlebars from 'handlebars'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -12,6 +12,6 @@ import * as path from 'path'
  */
 export const render = <T>(templatePath: string, data: T): string => {
   const filePath = path.resolve(process.cwd(), templatePath)
-  const template = compile(fs.readFileSync(filePath))
+  const template = handlebars.compile(fs.readFileSync(filePath))
   return template(data)
 }
