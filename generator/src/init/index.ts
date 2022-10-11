@@ -38,8 +38,23 @@ export const initializeConfigDirectory = (output: boolean) => {
       makeDirectory(absoluteConfigDirectoryPath)
       writeFiles(files, { disabled: !output })
       generateConfig(answers.configDirectoryPath, output)
+      const configFile =
+        answers.extension === 'JSON' ? 'config.json' : 'config.yml'
+      console.log(
+        `\nCreated config directory at ${absoluteConfigDirectoryPath}.`
+      )
+      console.log(
+        'Make sure to add the following script to the scripts object in your package.json:\n'
+      )
+      console.log(
+        `  "config:generate": "@laeri/config-generator generate --directory ${answers.configDirectoryPath}"\n`
+      )
+      console.log(
+        `That way you can run the following command to regenerate your config any time you update your ${configFile} file:\n`
+      )
+      console.log(`  $ ${answers.packageManager} run config:generate\n`)
     })
     .catch((error) => {
-      console.log('ERROR', error)
+      console.log('ERROR: ', error)
     })
 }
