@@ -2,6 +2,8 @@ import { ConfigSchema } from '../../schema/schema.interface'
 import { FILE_HEADER } from '../../common/constants'
 import { mapParseFunction } from '../../common/types'
 import { render } from '../../common/render'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 interface EnvironmentVariable {
   name: string
@@ -27,7 +29,11 @@ export const renderParser = (configSchema: ConfigSchema): string => {
       parseExpression,
     }
   })
-  return render<ParserProps>('./generate/templates/parser.ts.hbs', {
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url))
+  const templatePath = path.resolve(__dirname, '../templates/parser.ts.hbs')
+
+  return render<ParserProps>(templatePath, {
     header: FILE_HEADER,
     environmentVariables,
   })

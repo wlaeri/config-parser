@@ -6,6 +6,11 @@ import {
   MultipleConfigFileException,
 } from './exceptions'
 
+export interface ConfigPaths {
+  absoluteConfigSchemaFilePath: string
+  absoluteConfigDirectoryPath: string
+}
+
 /**
  * Detect the config schema file in a given config directory.
  *
@@ -14,7 +19,7 @@ import {
  * @throws {MultipleConfigFileException} If multiple config files are located in the config directory.
  * @return {string} The absolute path to the config schema file.
  */
-export const detectSchema = (configDirectory: string): string => {
+export const detectSchema = (configDirectory: string): ConfigPaths => {
   const configPath = path.resolve(process.cwd(), configDirectory)
   const configFiles: string[] = fs
     .readdirSync(configPath)
@@ -25,5 +30,9 @@ export const detectSchema = (configDirectory: string): string => {
   if (configFiles.length > 1)
     throw new MultipleConfigFileException(configPath, configFiles)
   const configFile = configFiles[0]
-  return path.resolve(configPath, configFile)
+  const absoluteConfigSchemaFilePath = path.resolve(configPath, configFile)
+  return {
+    absoluteConfigSchemaFilePath,
+    absoluteConfigDirectoryPath: configPath,
+  }
 }

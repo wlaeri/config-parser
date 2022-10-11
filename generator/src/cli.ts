@@ -30,8 +30,12 @@ program
 program
   .command('init')
   .description('initialize the config directory for the project')
-  .action(() => {
-    initializeConfigDirectory()
+  .option(
+    '--no-output',
+    'prints the generated files to the console instead of writing to the file system'
+  )
+  .action((options: { output: boolean }) => {
+    initializeConfigDirectory(options.output)
   })
 
 export const runCli = () => {

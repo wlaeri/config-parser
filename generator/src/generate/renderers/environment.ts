@@ -2,6 +2,8 @@ import { ConfigSchema } from '../../schema/schema.interface'
 import { FILE_HEADER } from '../../common/constants'
 import { mapType, PossiblePrimitive } from '../../common/types'
 import { render } from '../../common/render'
+import { fileURLToPath } from 'url'
+import path from 'path'
 
 interface EnvironmentVariable {
   name: string
@@ -25,11 +27,15 @@ export const renderEnvironmentDeclaration = (
       primitiveType: mapType(type),
     }
   })
-  return render<EnvironmentDeclarationProps>(
-    './generate/templates/environment.d.ts.hbs',
-    {
-      header: FILE_HEADER,
-      environmentVariables,
-    }
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url))
+  const templatePath = path.resolve(
+    __dirname,
+    '../templates/environment.d.ts.hbs'
   )
+
+  return render<EnvironmentDeclarationProps>(templatePath, {
+    header: FILE_HEADER,
+    environmentVariables,
+  })
 }

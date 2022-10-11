@@ -32,3 +32,13 @@ export const writeFiles = (files: File[], options?: WriteOptions): void => {
     writeFile(file.content, file.path, options)
   })
 }
+
+/**
+ * A utility function to make a directory if it doesn't exist.
+ * @param {string} path The absolute path of the directory to make.
+ */
+export const makeDirectory = (path: string): void => {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, { recursive: true })
+  }
+}

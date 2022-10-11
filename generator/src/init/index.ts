@@ -1,6 +1,15 @@
+import { makeDirectory, writeFiles } from '../common/fileSystem'
 import inquirer from 'inquirer'
+import { render } from './render'
+import { generateConfig } from '../generate'
 
-export const initializeConfigDirectory = () => {
+interface Answers {
+  configDirectoryPath: string
+  extension: 'YAML' | 'JSON'
+  packageManager: 'yarn' | 'npm'
+}
+
+export const initializeConfigDirectory = (output: boolean) => {
   inquirer
     .prompt([
       {
@@ -24,14 +33,13 @@ export const initializeConfigDirectory = () => {
         choices: ['yarn', 'npm'],
       },
     ])
-    .then((answers) => {
-      console.log('answers!', answers)
+    .then((answers: Answers) => {
+      const { files, absoluteConfigDirectoryPath } = render(answers)
+      makeDirectory(absoluteConfigDirectoryPath)
+      writeFiles(files, { disabled: !output })
+      generateConfig(answers.configDirectoryPath, output)
     })
     .catch((error) => {
-      if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
-      } else {
-        // Something else went wrong
-      }
+      console.log('ERROR', error)
     })
 }

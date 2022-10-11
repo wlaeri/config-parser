@@ -2,6 +2,8 @@ import { ConfigSchema } from '../../schema/schema.interface'
 import { FILE_HEADER } from '../../common/constants'
 import { mapType, PossiblePrimitive } from '../../common/types'
 import { render } from '../../common/render'
+import { fileURLToPath } from 'url'
+import path from 'path'
 
 interface EnvironmentVariable {
   name: string
@@ -39,11 +41,15 @@ export const renderConfigInterface = (configSchema: ConfigSchema): string => {
       example,
     }
   })
-  return render<ConfigInterfaceProps>(
-    './generate/templates/config.interface.ts.hbs',
-    {
-      header: FILE_HEADER,
-      environmentVariables,
-    }
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url))
+  const templatePath = path.resolve(
+    __dirname,
+    '../templates/config.interface.ts.hbs'
   )
+
+  return render<ConfigInterfaceProps>(templatePath, {
+    header: FILE_HEADER,
+    environmentVariables,
+  })
 }
