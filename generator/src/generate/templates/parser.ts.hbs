@@ -1,6 +1,6 @@
 {{header}}
 
-import { Config } from './interface'
+import { Config } from './config.interface'
 import {
   EnvironmentParser,
   toBoolean,
@@ -11,7 +11,7 @@ import {
 export const parse: EnvironmentParser<Config> = () => {
   return {
     {{#each environmentVariables}}
-      {{this.name}}: {{this.parseExpression}}
-    {{~/each}}
+    {{this.name}}: {{this.parseExpression}},
+    {{/each}}
   }
 }

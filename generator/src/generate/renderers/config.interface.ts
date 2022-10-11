@@ -32,10 +32,11 @@ export const renderConfigInterface = (configSchema: ConfigSchema): string => {
     return {
       name: key,
       primitiveType: mapType(type),
-      showComments:
+      showComments: !(
         typeof description === 'undefined' &&
         typeof example === 'undefined' &&
-        typeof defaultValue === 'undefined',
+        typeof defaultValue === 'undefined'
+      ),
       description,
       default: defaultValue,
       example,
