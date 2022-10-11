@@ -62,17 +62,17 @@ export interface Config {
    * The name of the application.
    * @example "my-app"
    */
-  applicationName: string
+  APP_NAME: string
   /**
    * The port the application is listening for requests on.
    * @example 1337
    */
-  port: number
+  APP_PORT: number
   /**
    * True if application tracing is enabled.
    * @example false
    */
-  isTracingEnabled: boolean
+  IS_TRACING_ENABLED: boolean
 }
 ```
 
@@ -88,9 +88,9 @@ import { toInteger, toBoolean, EnvironmentParser } from '@laeri/config-parser'
 
 export const parse: EnvironmentParser<Config> = () => {
   return {
-    applicationName: process.env.APP_NAME,
-    port: toInteger(process.env.APP_PORT),
-    isTracingEnabled: toBoolean(process.env.IS_TRACING_ENABLED),
+    APP_NAME: process.env.APP_NAME,
+    APP_PORT: toInteger(process.env.APP_PORT),
+    IS_TRACING_ENABLED: toBoolean(process.env.IS_TRACING_ENABLED),
   }
 }
 ```

@@ -1,0 +1,60 @@
+{
+  "$id": "https://github.com/wlaeri/config-schema/schema.json",
+  "title": "Config Schema",
+  "description": "A schema for specifying environment configuration.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "description": "The expected type of the environment variable.",
+        "type": "string",
+        "enum": ["string", "boolean", "integer", "number"]
+      },
+      "description": {
+        "description": "A description of the environment variable.",
+        "type": "string"
+      },
+      "example": {
+        "description": "An example value of the environment variable.",
+        "type": ["string", "boolean", "integer", "number"]
+      },
+      "default": {
+        "description": "A value for the environment variable to default to if none provided.",
+        "type": ["string", "boolean", "integer", "number"]
+      }
+    },
+    "anyOf": [
+      {
+        "properties": {
+          "type": { "const": "string" },
+          "example": { "type": "string" },
+          "default": { "type": "string" }
+        }
+      },
+      {
+        "properties": {
+          "type": { "const": "boolean" },
+          "example": { "type": "boolean" },
+          "default": { "type": "boolean" }
+        }
+      },
+      {
+        "properties": {
+          "type": { "const": "integer" },
+          "example": { "type": "integer" },
+          "default": { "type": "integer" }
+        }
+      },
+      {
+        "properties": {
+          "type": { "const": "number" },
+          "example": { "type": "number" },
+          "default": { "type": "number" }
+        }
+      }
+    ],
+    "required": ["type"],
+    "additionalProperties": false
+  }
+}

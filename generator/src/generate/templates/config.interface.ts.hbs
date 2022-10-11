@@ -1,0 +1,20 @@
+{{header}}
+
+export interface Config {
+{{#each environmentVariables}}
+  {{#if this.showComments}}
+  /**
+    {{#if this.description}}
+  * @description {{this.description}}
+    {{/if}}
+    {{#if this.default}}
+  * @default {{this.default}}
+    {{/if}}
+    {{#if this.example}}
+  * @example {{this.example}}
+    {{/if}}
+  */
+  {{/if}}
+  {{this.name}}: {{this.primitiveType}}
+{{/each}}
+}

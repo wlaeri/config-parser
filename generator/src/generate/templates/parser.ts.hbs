@@ -1,0 +1,17 @@
+{{header}}
+
+import { Config } from './config.interface'
+import {
+  EnvironmentParser,
+  toBoolean,
+  toFloat,
+  toInteger,
+} from '@laeri/config-parser'
+
+export const parse: EnvironmentParser<Config> = () => {
+  return {
+    {{#each environmentVariables}}
+    {{this.name}}: {{this.parseExpression}},
+    {{/each}}
+  }
+}

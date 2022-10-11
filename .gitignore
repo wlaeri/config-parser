@@ -1,6 +1,8 @@
 coverage
 lib
 node_modules
+dist
+config
 
 # Yarn
 .yarn/*

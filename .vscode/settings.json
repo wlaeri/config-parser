@@ -5,6 +5,9 @@
   },
   "eslint.validate": ["typescript", "json"],
   "editor.formatOnSave": true,
+  "[handlebars]": {
+    "editor.formatOnSave": false
+  },
   "editor.formatOnPaste": false,
   "cSpell.words": ["laeri"],
   "search.exclude": {
