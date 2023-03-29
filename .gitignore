@@ -3,10 +3,14 @@ lib
 node_modules
 
 # Yarn
+# Zero-Installs Reference: https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*
-!.yarn/releases
+!.yarn/cache
+!.yarn/patches
 !.yarn/plugins
-.pnp.*
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 package
 package.tgz

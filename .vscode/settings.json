@@ -3,10 +3,15 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": ["typescript", "json"],
+  "eslint.validate": [
+    "typescript",
+    "json"
+  ],
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
-  "cSpell.words": ["laeri"],
+  "cSpell.words": [
+    "laeri"
+  ],
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true

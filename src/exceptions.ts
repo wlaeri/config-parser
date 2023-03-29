@@ -16,7 +16,13 @@ export class ParserException extends Error {
  * Thrown if an environment variable is missing.
  */
 export class MissingEnvironmentVariableException extends Error {
-  constructor(variableName: string) {
-    super(`Required environment variable ${variableName} is not set.`)
+  /**
+   * Creates an instance of MissingEnvironmentVariableException.
+   * @param {string} key The key of the environment variable that is missing.
+   * For example, if `process.env.APP_NAME` is missing, the key would be
+   * `APP_NAME`.
+   */
+  constructor(key: string) {
+    super(`Required environment variable ${key} is not set.`)
   }
 }

@@ -24,97 +24,37 @@ yarn add @laeri/config-parser
 
 ## Usage
 
-### Project directory structure
+### Specify the config object
 
-```
-/config
-  environment.d.ts
-  index.ts
-  interface.ts
-  parser.ts
-```
-
-### Declare the environment
-
-An optional declaration file for the environment enables intelligent code completion for `process.env`.
+The typed config object provides a place to document your environment variables in code. These comments should be available via intelligent code completion.
 
 ```ts
-// config/environment.d.ts
+// config.ts
 
-namespace NodeJS {
-  interface ProcessEnv {
-    APP_NAME: string
-    APP_PORT: string
-    IS_TRACING_ENABLED: string
-  }
-}
-```
-
-### Specify the config interface
-
-The interface for the config object provides a place to document your environment variables in code.
-
-```ts
-// config/interface.ts
-
-export interface Config {
+export const config = {
   /**
    * The name of the application.
    * @example "my-app"
    */
-  applicationName: string
+  applicationName: parseToString('APPLICATION_NAME'),
   /**
    * The port the application is listening for requests on.
    * @example 1337
    */
-  port: number
+  port: parseToInteger('PORT'),
   /**
    * True if application tracing is enabled.
    * @example false
    */
-  isTracingEnabled: boolean
+  isTracingEnabled: parseToBoolean('IS_TRACING_ENABLED'),
 }
 ```
 
-### Define the parser function
+> The parsing functions included in this utility library throw [exceptions](#exceptions) if the value is missing or cannot be parsed.
 
-Provide the function to parse your environment variables from strings to their expected types.
+### Use the config object in your application
 
-```ts
-// config/parser.ts
-
-import { Config } from './interface'
-import { toInteger, toBoolean, EnvironmentParser } from '@laeri/config-parser'
-
-export const parse: EnvironmentParser<Config> = () => {
-  return {
-    applicationName: process.env.APP_NAME,
-    port: toInteger(process.env.APP_PORT),
-    isTracingEnabled: toBoolean(process.env.IS_TRACING_ENABLED),
-  }
-}
-```
-
-### Pass the `parse` function to `sanitize`
-
-This step ensures that an [exception](#exceptions) is thrown if the environment is not properly configured.
-
-```ts
-// config/index.ts
-
-import { sanitize } from '@laeri/config-parser'
-import { parse } from './parser'
-import * as dotenv from 'dotenv'
-
-dotenv.config()
-export const config = sanitize(parse)
-```
-
-> This library has no dependencies but it can be used in conjunction with libraries like [`dotenv`](https://github.com/motdotla/dotenv#readme).
-
-### Use the config object in your application.
-
-The config object is now typed and ready to use anywhere you need it.
+The config object is now ready to use anywhere you need it.
 
 ```ts
 // server.ts
@@ -127,8 +67,33 @@ app.listen(config.port, () => {
 })
 ```
 
+> This library has no dependencies but it can be used in conjunction with libraries like [`dotenv`](https://github.com/motdotla/dotenv#readme).
+
+### Prevent accessing `process.env` directly (optional)
+
+You can add a [linter rule](https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-process-env.md) to your `eslintrc.json` file to discourage accessing the `process.env` object directly.
+
+```json
+{
+  "extends": [
+        "eslint:recommended",
+        "plugin:node/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "rules": {
+        "node/no-process-env": ["error", "always"],
+        ...
+    }
+}
+```
+
+> This linter rule requires [`eslint-plugin-node`](https://github.com/mysticatea/eslint-plugin-node#-install--usage).
+
 ## Parsers
 
+- `parseToString`: parses an environment variable to a `string` type (e.g. `"http://localhost" => "http://localhost"`)
 - `toBoolean`: parses an environment variable to a `boolean` type (e.g. `"true" => true`)
 - `toFloat`: parses an environment variable to a `number` type (e.g. `"12.75" => 12.75`)
 - `toInteger`: parses an environment variable to an integer (e.g. `"42" => 42`)
