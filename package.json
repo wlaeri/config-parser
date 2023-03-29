@@ -21,7 +21,7 @@
     "coverage": "jest --coverage",
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "yarn build",
-    "build": "yarn clean && yarn tsc",
+    "build": "yarn tsc",
     "prepare": "yarn build && husky install",
     "prepack": "yarn build",
     "pack:local": "yarn pack && tar -xvf package.tgz"

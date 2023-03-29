@@ -12,7 +12,8 @@
     "paths": {
       "src/*": ["./src/*"]
     },
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts"]
